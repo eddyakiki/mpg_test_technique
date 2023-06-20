@@ -83,7 +83,7 @@ const JoueursScreen:FunctionComponent = () => {
                 }
             });
     
-            // Wrap playersWithClub in an object with key 'playersWithClubs'
+            //Pour chaque joueur on ajoute les infos suivants: nom de son club, le nom court de son club, lien vers l'image du maillot de son club, en se basant sur clubId
             setFilteredData({playersWithClubs: playersWithClub});
             setFullData({playersWithClubs: playersWithClub});
             
