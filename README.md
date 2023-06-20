@@ -23,23 +23,23 @@ Pour exécuter cette application sur votre machine locale, suivez les étapes ci
 
 Sur l'écran Joueurs, l'application affiche une liste de joueurs dans un composant `FlatList`. Cela optimise les performances, en particulier pour les grandes listes.
 
-<img src="./resources/main.png" width="600" height="900">
+<img src="./resources/main.png" width="600" height="950">
 
 La liste peut être filtrée en utilisant la barre de recherche en haut de l'écran. La recherche est insensible à la casse et peut être effectuée soit par le nom du joueur, soit par sa position.
 
-<img src="./resources/filtre_nom.png" width="600" height="900">
-<img src="./resources/filtre_position.png" width="600" height="900">
+<img src="./resources/filtre_nom.png" width="600" height="950">
+<img src="./resources/filtre_position.png" width="600" height="950">
 
 Une fois que vous avez commencé à faire défiler la liste, un bouton apparaît en bas à droite pour vous permettre de revenir rapidement en haut de la page.
 
-<img src="./resources/bouton_scroll.png" width="600" height="900">
+<img src="./resources/bouton_scroll.png" width="600" height="950">
 
 ## Écran du Joueur Individuel (SinglePlayerScreen)
 
 Lorsque vous cliquez sur un joueur dans la liste, vous êtes redirigé vers une fiche détaillée pour ce joueur. Cet écran affiche des informations supplémentaires sur le joueur, qui sont récupérées à partir de trois API.
 
 
-<img src="./resources/fiche_det.png" width="600" height="900">
+<img src="./resources/fiche_det.png" width="600" height="950">
 
 ## Cartes de Joueurs (JoueursCards)
 
