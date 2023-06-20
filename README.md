@@ -6,7 +6,7 @@ L'application a été développée avec React Native et TypeScript. Elle affiche
 
 Pour exécuter cette application sur votre machine locale, suivez les étapes ci-dessous :
 
-1. **Clonez le dépôt :**
+1. **Clonez le dépôt**
 
 2. **Naviguez dans le répertoire du projet**
 3. **Installez les dépendances :** Installez les dépendances du projet en utilisant la commande suivante :
