@@ -25,7 +25,8 @@ Pour exécuter cette application sur votre machine locale, suivez les étapes ci
 
 Sur l'écran Joueurs, l'application affiche une liste de joueurs dans un composant `FlatList`. Cela optimise les performances, en particulier pour les grandes listes.
 
-![Logo](./resources/main.png)
+<img src="./resources/main.png" width="200" height="200">
+
 
 La liste peut être filtrée en utilisant la barre de recherche en haut de l'écran. La recherche est insensible à la casse et peut être effectuée soit par le nom du joueur, soit par sa position.
 
