@@ -160,7 +160,7 @@ const JoueursScreen:FunctionComponent = () => {
                   inputStyle={{color:'rgb(33,211,63)'}}
                 />
               </View>
-              {loading && <Text>Loading...</Text>}
+              {loading && <Text style={{color:'rgb(33,211,63)', flex:1,flexWrap:'wrap',textAlign:'center'}}>Loading...</Text>}
               {!loading && (filteredData?.playersWithClubs?.length || 0) === 0 && <Text style={{color:'rgb(33,211,63)', flex:1,flexWrap:'wrap',textAlign:'center'}}>Désolé, aucun résultat trouvé.</Text>}
               {!loading && (filteredData?.playersWithClubs?.length || 0) > 0 && 
               <AnimatedFlatList
