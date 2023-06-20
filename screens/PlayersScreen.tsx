@@ -108,33 +108,33 @@ const JoueursScreen:FunctionComponent = () => {
 
     // Filtrage des joueurs en fonction de l'entrée de recherche
 
-        const handleSearch = (query:string) => {
-          try {
-              setSearchInput(query);
-              let result;
-          
-              const cleanedInput = query.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
-          
-              const filteredPlayers = fullData?.playersWithClubs?.filter((player) => {
-                  // On récupère le prénom du joueur et on le convertit en minuscule. 
-                  // Ensuite, on supprime tout caractère qui n'est pas une lettre ou un espace.
-                  // Enfin, on remplace tous les espaces multiples par un seul espace.
-                  const firstName = player.firstName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
-                  const lastName = player.lastName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
-                  const fullName = `${firstName} ${lastName}`;
-                  const reverseFullName = `${lastName} ${firstName}`;
-                  const position = ultraPositionMap[player.ultraPosition]?.toLowerCase();
+const handleSearch = (query:string) => {
+  try {
+      setSearchInput(query);
+      let result;
+  
+      const cleanedInput = query.trim().toLowerCase().replace(/[^\p{L}\s]/giu, '').replace(/\s+/g, ' ');
+  
+      const filteredPlayers = fullData?.playersWithClubs?.filter((player) => {
+          // On récupère le prénom du joueur et on le convertit en minuscule. 
+          // Ensuite, on supprime tout caractère qui n'est pas une lettre ou un espace.
+          // Enfin, on remplace tous les espaces multiples par un seul espace.
+          const firstName = player.firstName?.toLowerCase().replace(/[^\p{L}\s]/giu, '').replace(/\s+/g, ' ');
+          const lastName = player.lastName?.toLowerCase().replace(/[^\p{L}\s]/giu, '').replace(/\s+/g, ' ');
+          const fullName = `${firstName} ${lastName}`;
+          const reverseFullName = `${lastName} ${firstName}`;
+          const position = ultraPositionMap[player.ultraPosition]?.toLowerCase();
 
-                  //Cherche si le textInput fait partie d'un nom, prenom, nom complet, nom a l'inverse, ou position
-                  return fullName.includes(cleanedInput) || reverseFullName.includes(cleanedInput) || firstName?.includes(cleanedInput) || lastName.includes(cleanedInput) || position?.includes(cleanedInput);
-              });
-          
-              result = { playersWithClubs: filteredPlayers || [] };
-              setFilteredData(result);     
-          } catch (error) {
-              console.error("An error occurred during search: ", error);
-          }
-        };
+          //Cherche si le textInput fait partie d'un nom, prenom, nom complet, nom a l'inverse, ou position
+          return fullName.includes(cleanedInput) || reverseFullName.includes(cleanedInput) || firstName?.includes(cleanedInput) || lastName.includes(cleanedInput) || position?.includes(cleanedInput);
+      });
+  
+      result = { playersWithClubs: filteredPlayers || [] };
+      setFilteredData(result);     
+  } catch (error) {
+      console.error("An error occurred during search: ", error);
+  }
+};
 
 
 
