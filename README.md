@@ -25,7 +25,7 @@ Sur l'écran Joueurs, l'application affiche une liste de joueurs dans un composa
 
 <img src="./resources/main.png" width="600" height="1000">
 
-La liste peut être filtrée en utilisant la barre de recherche en haut de l'écran. La recherche est insensible à la casse et peut être effectuée soit par le nom du joueur, soit par sa position.
+La liste des joueurs peut maintenant être filtrée en utilisant la barre de recherche située en haut de l'écran. Non seulement la recherche est insensible à la casse, permettant de rechercher soit par le nom du joueur soit par sa position, mais elle gère également des entrées avec des espaces multiples. J'ai également ajouté une gestion des erreurs afin d'assurer que la recherche est toujours efficace et précise. De plus, avant que les données ne soient rendues, un composant de chargement est affiché pour indiquer que les données sont en cours de récupération. Si aucune correspondance n'est trouvée pour la requête de recherche entrée, le message "Désolé, aucun résultat trouvé" s'affiche.
 
 <img src="./resources/filtre_nom.png" width="600" height="1000">
 <img src="./resources/filtre_position.png" width="600" height="1000">
