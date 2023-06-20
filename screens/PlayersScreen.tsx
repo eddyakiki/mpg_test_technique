@@ -24,7 +24,7 @@ const JoueursScreen:FunctionComponent = () => {
     // Référence pour le défilement de l'écran
     const scrollY = useRef(new Animated.Value(0)).current;
     const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-    // 
+    // State pour vérifier si les données sont toujours en cours de récupération
     const [loading, setLoading] = useState<boolean>(true);
 
 
@@ -106,7 +106,7 @@ const JoueursScreen:FunctionComponent = () => {
     }
 
 
-        // Filtering players based on the search input
+    // Filtrage des joueurs en fonction de l'entrée de recherche
 
         const handleSearch = (query:string) => {
           try {
@@ -116,6 +116,9 @@ const JoueursScreen:FunctionComponent = () => {
               const cleanedInput = query.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
           
               const filteredPlayers = fullData?.playersWithClubs?.filter((player) => {
+                  // On récupère le prénom du joueur et on le convertit en minuscule. 
+                  // Ensuite, on supprime tout caractère qui n'est pas une lettre ou un espace.
+                  // Enfin, on remplace tous les espaces multiples par un seul espace.
                   const firstName = player.firstName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
                   const lastName = player.lastName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
                   const fullName = `${firstName} ${lastName}`;
