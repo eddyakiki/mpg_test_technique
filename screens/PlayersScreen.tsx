@@ -1,4 +1,4 @@
-import { SafeAreaView,TouchableOpacity, Animated,Dimensions,Image,FlatList, View,StatusBar } from 'react-native';
+import { SafeAreaView,TouchableOpacity, Animated,Dimensions,Image,FlatList, View,StatusBar,Text } from 'react-native';
 import React, { FunctionComponent, useLayoutEffect, useState, useEffect,useRef } from 'react';
 import { useNavigation} from '@react-navigation/native';
 import { RootStackParamList } from '../navigator/RootNavigator';
@@ -24,6 +24,8 @@ const JoueursScreen:FunctionComponent = () => {
     // Référence pour le défilement de l'écran
     const scrollY = useRef(new Animated.Value(0)).current;
     const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+    // 
+    const [loading, setLoading] = useState<boolean>(true);
 
 
     // Définition de l'opacité du bouton en fonction du défilement de l'écran
@@ -58,6 +60,7 @@ const JoueursScreen:FunctionComponent = () => {
       // Fonction pour récupérer les données des joueurs et des clubs
       const fetchPlayerData = async () => {
         try {
+            setLoading(true);
             const [playersRes, clubsRes] = await Promise.all([
                 fetch('https://api.mpg.football/api/data/championship-players-pool/1'),
                 fetch('https://api.mpg.football/api/data/championship-clubs'),
@@ -86,9 +89,11 @@ const JoueursScreen:FunctionComponent = () => {
             //Pour chaque joueur on ajoute les infos suivants: nom de son club, le nom court de son club, lien vers l'image du maillot de son club, en se basant sur clubId
             setFilteredData({playersWithClubs: playersWithClub});
             setFullData({playersWithClubs: playersWithClub});
+            setLoading(false);
             
         } catch (error) {
             console.error(`Fetch and processing failed: ${error}`);
+            setLoading(false);
         }
     }
 
@@ -101,23 +106,33 @@ const JoueursScreen:FunctionComponent = () => {
     }
 
 
-    // Filtrage des joueurs en fonction de l'entrée de recherche
+        // Filtering players based on the search input
 
-    const handleSearch = (query:string) =>{
-      setSearchInput(query);
-      let result;
-      const filteredPlayers = fullData?.playersWithClubs?.filter((player) => {
-        const firstName = player.firstName?.toLowerCase().replace(/[^\w\s]/gi, '');
-        const lastName = player.lastName.toLocaleLowerCase().replace(/[^\w\s]/gi, '');
-        const position = ultraPositionMap[player.ultraPosition].toLowerCase();
-        const cleanedInput = query.toLowerCase().replace(/[^\w\s]/gi, '');
-        
-        return firstName?.includes(cleanedInput) || lastName.includes(cleanedInput) || position.includes(cleanedInput);
-    });
-  
-        result = { playersWithClubs: filteredPlayers || [] };
-        setFilteredData(result);     
-    };
+        const handleSearch = (query:string) => {
+          try {
+              setSearchInput(query);
+              let result;
+          
+              const cleanedInput = query.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
+          
+              const filteredPlayers = fullData?.playersWithClubs?.filter((player) => {
+                  const firstName = player.firstName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
+                  const lastName = player.lastName?.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, ' ');
+                  const fullName = `${firstName} ${lastName}`;
+                  const reverseFullName = `${lastName} ${firstName}`;
+                  const position = ultraPositionMap[player.ultraPosition]?.toLowerCase();
+
+                  //Cherche si le textInput fait partie d'un nom, prenom, nom complet, nom a l'inverse, ou position
+                  return fullName.includes(cleanedInput) || reverseFullName.includes(cleanedInput) || firstName?.includes(cleanedInput) || lastName.includes(cleanedInput) || position?.includes(cleanedInput);
+              });
+          
+              result = { playersWithClubs: filteredPlayers || [] };
+              setFilteredData(result);     
+          } catch (error) {
+              console.error("An error occurred during search: ", error);
+          }
+        };
+
 
 
     
@@ -142,6 +157,9 @@ const JoueursScreen:FunctionComponent = () => {
                   inputStyle={{color:'rgb(33,211,63)'}}
                 />
               </View>
+              {loading && <Text>Loading...</Text>}
+              {!loading && (filteredData?.playersWithClubs?.length || 0) === 0 && <Text style={{color:'rgb(33,211,63)', flex:1,flexWrap:'wrap',textAlign:'center'}}>Désolé, aucun résultat trouvé.</Text>}
+              {!loading && (filteredData?.playersWithClubs?.length || 0) > 0 && 
               <AnimatedFlatList
   ref={scrollViewRef}
   data={filteredData?.playersWithClubs}
@@ -168,7 +186,7 @@ const JoueursScreen:FunctionComponent = () => {
     />
   )}
   keyExtractor={(item: PlayerWithClub, index) => item.id + index.toString()}
-/>
+/>}
 
         <Animated.View
           style={{
