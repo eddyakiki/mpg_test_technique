@@ -1,6 +1,6 @@
 # MPG Test Technique
 
-L'application a été développée avec React Native et TypeScript. Elle affiche une liste de joueurs de football et offre la possibilité d'effectuer des recherches parmi ces joueurs. Elle permet également d’afficher une fiche détaillée pour chaque joueur. L'interface utilisateur est entièrement adaptif, s'adaptant donc à toutes les tailles d'écran pour une expérience optimale sur tous les appareils.
+L'application a été développée avec React Native et TypeScript. Elle affiche une liste de joueurs de football et offre la possibilité d'effectuer des recherches parmi ces joueurs. Elle permet également d’afficher une fiche détaillée pour chaque joueur. L'interface utilisateur est entièrement adaptative, s'adaptant donc à toutes les tailles d'écran pour une expérience optimale sur tous les appareils.
 
 ## Comment exécuter l'application
 
